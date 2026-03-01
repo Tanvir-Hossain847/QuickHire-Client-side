@@ -5,7 +5,7 @@ import Image from "next/image";
 export default function CTA() {
   return (
     <div>
-     <section className="relative w-full bg-white py-8 px-4 md:px-8 overflow-hidden">
+     <section className="relative w-full bg-white py-15 px-4 md:px-8 overflow-hidden">
       <div className="max-w-11/12 mx-auto">
         <div className="relative rounded-2xl overflow-hidden min-h-[320px] flex items-center">
           {/* Background image */}

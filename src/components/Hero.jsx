@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 
 const Hero = () => {
@@ -6,7 +7,7 @@ const Hero = () => {
       <div className="grid lg:grid-cols-2 gap-12 items-center">
         {/* LEFT CONTENT */}
         <div className="z-50 mt-8 lg:mt-0 relative">
-          <h1 className="text-6xl md:text-[72px] font-semibold space-y-2 text-[#1e2532] leading-[1.1] mb-6 tracking-tight">
+          <h1 className="text-6xl md:text-[72px] font-bold space-y-2 text-[#1e2532] leading-[1.1] mb-6 tracking-tight">
             Discover <br />
             more than <br />
             <span className="relative inline-block text-[#26A4FF]">

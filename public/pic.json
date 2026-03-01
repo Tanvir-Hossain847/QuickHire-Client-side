@@ -1,7 +1,137 @@
-const = image{
-https://i.ibb.co.com/q324CNn7/amd-logo-1.png
-https://i.ibb.co.com/QFzHJySf/intel-3.png
-https://i.ibb.co.com/zVH0M1Lm/talkit-1.png  
-https://i.ibb.co.com/PvsdYdwm/tesla-9-1.png
-https://i.ibb.co.com/6RMmkqp6/vodafone-2017-logo.png
-}
+[
+    {
+        "title": "Full Stack Developer",
+        "company": "OrbitEdge Labs",
+        "company_logo": "https://i.ibb.co.com/k2WG43bX/Dropbox.png",
+        "location": "Dhaka, Bangladesh",
+        "category": "Development",
+        "description": "OrbitEdge Labs is seeking a talented Full Stack Developer to design, develop, and maintain scalable web applications from frontend interfaces to backend systems. You will work with React.js and Next.js on the frontend while building RESTful APIs using Node.js and Express on the backend. Your responsibilities include database schema design, authentication implementation, API optimization, and writing reusable, testable code. You will collaborate closely with UI/UX designers and DevOps engineers to ensure seamless deployment and system reliability. The ideal candidate has experience with MongoDB or PostgreSQL, understands application security best practices, and is comfortable working in an agile development environment. Strong debugging skills, performance optimization knowledge, and familiarity with CI/CD pipelines are highly valued.",
+        "created_at": "2026-03-01"
+    },
+    {
+        "title": "React Developer",
+        "company": "NextGen Softworks",
+        "company_logo": "https://i.ibb.co.com/k2WG43bX/Dropbox.png",
+        "location": "Remote",
+        "category": "Development",
+        "description": "NextGen Softworks is hiring a React Developer to build interactive and high-performance web interfaces. You will translate UI designs into responsive components, manage complex application state, and integrate APIs efficiently. The role involves optimizing performance, improving accessibility, and ensuring cross-browser compatibility. Experience with hooks, context API, Redux or Zustand, and modern styling solutions like Tailwind CSS is required. You will participate in code reviews, contribute to architecture discussions, and help maintain clean coding standards across projects. A strong understanding of component lifecycle, reusable design patterns, and frontend testing practices will set you apart.",
+        "created_at": "2026-02-28"
+    },
+    {
+        "title": "DevOps Engineer",
+        "company": "SkyBridge Technologies",
+        "company_logo": "https://i.ibb.co.com/wZ8xQGDJ/fi-SX9-QYy-400x400-1.png",
+        "location": "Chittagong, Bangladesh",
+        "category": "Infrastructure",
+        "description": "SkyBridge Technologies is looking for a DevOps Engineer to streamline development workflows and maintain scalable infrastructure. You will manage cloud deployments, configure CI/CD pipelines, monitor system health, and ensure high availability of services. Experience with AWS or Google Cloud, Docker, Kubernetes, and infrastructure as code tools such as Terraform is required. You will collaborate with development teams to automate build processes and enhance system reliability. Strong troubleshooting skills and a proactive mindset toward security and performance optimization are essential.",
+        "created_at": "2026-02-27"
+    },
+    {
+        "title": "Mobile App Developer",
+        "company": "AppSphere Innovations",
+        "company_logo": "https://i.ibb.co.com/H0sGCfb/q-Uvcta52-400x400-1.png",
+        "location": "Sylhet, Bangladesh",
+        "category": "Development",
+        "description": "AppSphere Innovations is seeking a Mobile App Developer experienced in building cross-platform applications using React Native or Flutter. You will develop intuitive mobile interfaces, integrate APIs, manage state efficiently, and ensure smooth performance across devices. The role includes debugging performance issues, implementing push notifications, and collaborating with backend engineers to maintain secure data flow. Experience with app store deployment processes and mobile UI/UX best practices is required.",
+        "created_at": "2026-02-26"
+    },
+    {
+        "title": "Data Analyst",
+        "company": "InsightCore Analytics",
+        "company_logo": "https://i.ibb.co.com/V0n1wGmH/Company-Logo.png",
+        "location": "Dhaka, Bangladesh",
+        "category": "Data",
+        "description": "InsightCore Analytics is hiring a Data Analyst to transform raw data into actionable business insights. You will analyze datasets, build dashboards, generate reports, and communicate findings clearly to stakeholders. Proficiency in SQL, Excel, and visualization tools like Power BI or Tableau is required. Experience with Python for data analysis and understanding statistical modeling techniques will be beneficial. Strong analytical thinking and attention to detail are essential for success in this role.",
+        "created_at": "2026-02-25"
+    },
+    {
+        "title": "UI Designer",
+        "company": "CreativePixel Studio",
+        "company_logo": "https://i.ibb.co.com/5xtSh4rb/can.png",
+        "location": "Remote",
+        "category": "Design",
+        "description": "CreativePixel Studio is seeking a UI Designer with a strong sense of visual hierarchy and modern design trends. You will design responsive web and mobile interfaces, create style guides, and ensure consistency across digital products. Proficiency in Figma and Adobe Creative Suite is required. The role demands strong collaboration skills to work closely with developers and product teams to bring design concepts to life.",
+        "created_at": "2026-02-24"
+    },
+    {
+        "title": "Cybersecurity Specialist",
+        "company": "SecureNet Systems",
+        "company_logo": "https://i.ibb.co.com/Mxtxqq4b/godaddy-logo-0-1.png",
+        "location": "Dhaka, Bangladesh",
+        "category": "Security",
+        "description": "SecureNet Systems is looking for a Cybersecurity Specialist to safeguard company infrastructure and digital assets. Responsibilities include vulnerability assessments, penetration testing, security audits, and implementing risk mitigation strategies. Familiarity with firewalls, intrusion detection systems, encryption protocols, and compliance standards is required. Strong analytical skills and the ability to respond quickly to security incidents are critical.",
+        "created_at": "2026-02-23"
+    },
+    {
+        "title": "Content Strategist",
+        "company": "BrandWave Media",
+        "company_logo": "https://i.ibb.co.com/G3dNyBCN/Btnfm47p-400x400-1.png",
+        "location": "Chittagong, Bangladesh",
+        "category": "Marketing",
+        "description": "BrandWave Media is hiring a Content Strategist to plan and execute compelling digital content strategies. You will manage blog content, social media campaigns, SEO optimization, and audience engagement initiatives. The ideal candidate understands storytelling, keyword research, analytics tracking, and conversion optimization techniques.",
+        "created_at": "2026-02-22"
+    },
+    {
+        "title": "Software QA Engineer",
+        "company": "CodeMatrix Ltd.",
+        "company_logo": "https://i.ibb.co.com/6RMmkqp6/vodafone-2017-logo.png",
+        "location": "Remote",
+        "category": "Quality Assurance",
+        "description": "CodeMatrix Ltd. is seeking a Software QA Engineer to ensure product quality and performance. You will design test cases, perform manual and automated testing, identify bugs, and collaborate with developers to resolve issues efficiently. Experience with Selenium, Cypress, or similar automation tools is preferred.",
+        "created_at": "2026-02-21"
+    },
+    {
+        "title": "HR Executive",
+        "company": "TalentForge Solutions",
+        "company_logo": "https://i.ibb.co.com/QFzHJySf/intel-3.png",
+        "location": "Dhaka, Bangladesh",
+        "category": "Human Resources",
+        "description": "TalentForge Solutions is hiring an HR Executive to manage recruitment processes, employee engagement programs, and performance evaluation systems. You will coordinate onboarding, maintain HR documentation, and support organizational culture initiatives.",
+        "created_at": "2026-02-20"
+    },
+    {
+        "title": "Business Development Manager",
+        "company": "GrowthHub International",
+        "company_logo": "https://i.ibb.co.com/PvsdYdwm/tesla-9-1.png",
+        "location": "Sylhet, Bangladesh",
+        "category": "Business",
+        "description": "GrowthHub International is seeking a Business Development Manager to identify growth opportunities, build strategic partnerships, and drive revenue expansion. You will conduct market research, prepare proposals, and negotiate business deals.",
+        "created_at": "2026-02-19"
+    },
+    {
+        "title": "Cloud Architect",
+        "company": "Nimbus Tech",
+        "company_logo": "https://i.ibb.co.com/q324CNn7/amd-logo-1.png",
+        "location": "Remote",
+        "category": "Infrastructure",
+        "description": "Nimbus Tech is hiring a Cloud Architect to design scalable cloud solutions and oversee infrastructure modernization. Experience with AWS, Azure, or GCP and knowledge of distributed systems architecture is required.",
+        "created_at": "2026-02-18"
+    },
+    {
+        "title": "Graphic Designer",
+        "company": "Visionary Creatives",
+        "company_logo": "https://i.ibb.co.com/zVH0M1Lm/talkit-1.png",
+        "location": "Chittagong, Bangladesh",
+        "category": "Design",
+        "description": "Visionary Creatives is seeking a Graphic Designer to create branding materials, social media graphics, marketing assets, and promotional visuals. Strong typography, layout design, and branding experience are required.",
+        "created_at": "2026-02-17"
+    },
+    {
+        "title": "AI Engineer",
+        "company": "NeuroStack Labs",
+        "company_logo": "https://i.ibb.co.com/k2WG43bX/Dropbox.png",
+        "location": "Dhaka, Bangladesh",
+        "category": "Artificial Intelligence",
+        "description": "NeuroStack Labs is looking for an AI Engineer to develop intelligent systems using machine learning and deep learning frameworks. Experience with Python, TensorFlow or PyTorch, and data preprocessing pipelines is required.",
+        "created_at": "2026-02-16"
+    },
+    {
+        "title": "Customer Success Manager",
+        "company": "ClientBridge Solutions",
+        "company_logo": "https://i.ibb.co.com/Txrfk5J0/Bv-Boa-EET-400x400-1.png",
+        "location": "Remote",
+        "category": "Customer Support",
+        "description": "ClientBridge Solutions is hiring a Customer Success Manager to manage client relationships, ensure product adoption, and improve customer retention. Strong communication skills and experience in SaaS environments are preferred.",
+        "created_at": "2026-02-15"
+    }
+]

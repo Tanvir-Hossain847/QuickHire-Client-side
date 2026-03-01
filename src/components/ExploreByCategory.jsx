@@ -1,3 +1,4 @@
+"use client";
 import React from 'react';
 import { PenTool, LineChart, Megaphone, Wallet, Monitor, Code, Briefcase, Users, ArrowRight } from 'lucide-react';
 
@@ -62,7 +63,7 @@ const categories = [
 
 export default function ExploreByCategory() {
   return (
-    <section className="w-full py-16 bg-white">
+    <section className="w-full pt-25 bg-white">
       <div className="max-w-11/12 mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row justify-between items-center mb-10 gap-4">
           <h2 className="text-3xl md:text-5xl font-semibold text-[#202941] tracking-tight">
