@@ -8,6 +8,7 @@ export default function AdminDashboard() {
     totalJobs: 0,
     activeJobs: 0,
     totalApplications: 0,
+    pendingApplications: 0,
     recentJobs: []
   });
   const [loading, setLoading] = useState(true);
@@ -19,16 +20,28 @@ export default function AdminDashboard() {
   const fetchDashboardData = async () => {
     try {
       setLoading(true);
-      const response = await fetch('http://localhost:4000/jobs');
-      if (response.ok) {
-        const jobs = await response.json();
-        setStats({
-          totalJobs: jobs.length,
-          activeJobs: jobs.length,
-          totalApplications: Math.floor(Math.random() * 500) + 100, // Mock data
-          recentJobs: jobs.slice(0, 5)
-        });
+      
+      // Fetch jobs
+      const jobsResponse = await fetch('http://localhost:4000/jobs');
+      let jobsData = [];
+      if (jobsResponse.ok) {
+        jobsData = await jobsResponse.json();
       }
+
+      // Fetch applications
+      const appsResponse = await fetch('http://localhost:4000/applications');
+      let appsData = [];
+      if (appsResponse.ok) {
+        appsData = await appsResponse.json();
+      }
+
+      setStats({
+        totalJobs: jobsData.length,
+        activeJobs: jobsData.length,
+        totalApplications: appsData.length,
+        pendingApplications: appsData.filter(app => app.status === 'pending').length,
+        recentJobs: jobsData.slice(0, 5)
+      });
     } catch (error) {
       console.error('Error fetching dashboard data:', error);
     } finally {
@@ -69,23 +82,23 @@ export default function AdminDashboard() {
           trend="+8%"
         />
         <StatCard
-          title="Applications"
+          title="Total Applications"
           value={stats.totalApplications}
           icon={<Users className="h-8 w-8" />}
           color="bg-purple-500"
           trend="+23%"
         />
         <StatCard
-          title="Avg. Salary"
-          value="$85k"
+          title="Pending Reviews"
+          value={stats.pendingApplications}
           icon={<DollarSign className="h-8 w-8" />}
           color="bg-orange-500"
-          trend="+5%"
+          trend={stats.pendingApplications > 0 ? `${stats.pendingApplications} new` : 'None'}
         />
       </div>
 
       {/* Quick Actions */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <Link
           href="/admin/jobs?action=add"
           className="bg-gradient-to-r from-[#5848DF] to-[#7c6ef5] text-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow"
@@ -112,6 +125,21 @@ export default function AdminDashboard() {
             <div>
               <h3 className="text-xl font-bold">Manage Jobs</h3>
               <p className="text-white/80 text-sm">View and edit existing jobs</p>
+            </div>
+          </div>
+        </Link>
+
+        <Link
+          href="/admin/applications"
+          className="bg-gradient-to-r from-[#10b981] to-[#059669] text-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow"
+        >
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center">
+              <Users className="h-6 w-6" />
+            </div>
+            <div>
+              <h3 className="text-xl font-bold">View Applications</h3>
+              <p className="text-white/80 text-sm">Review job applications</p>
             </div>
           </div>
         </Link>

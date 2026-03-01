@@ -13,6 +13,7 @@ import {
 } from 'lucide-react';
 import Image from 'next/image';
 import { useAuth } from '@/context/AuthContext';
+import { Toast } from '@/utils/sweetalert';
 
 export default function JobDetail() {
   const params = useParams();
@@ -94,30 +95,55 @@ export default function JobDetail() {
     setApplying(true);
 
     try {
-      // Simulate API call - replace with your actual endpoint
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      
-      // Here you would typically send the application to your backend
-      // const formDataToSend = new FormData();
-      // formDataToSend.append('jobId', params.id);
-      // formDataToSend.append('userId', user.uid);
-      // formDataToSend.append('fullName', formData.fullName);
-      // formDataToSend.append('email', formData.email);
-      // formDataToSend.append('phone', formData.phone);
-      // formDataToSend.append('coverLetter', formData.coverLetter);
+      const applicationData = {
+        jobId: params.id,
+        userId: user.uid,
+        userEmail: user.email,
+        fullName: formData.fullName,
+        email: formData.email,
+        phone: formData.phone,
+        coverLetter: formData.coverLetter,
+        resumeFileName: formData.resume?.name || null,
+        appliedAt: new Date().toISOString(),
+        status: 'pending'
+      };
+
+      // Send application to backend
+      const response = await fetch('http://localhost:4000/applications', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(applicationData),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to submit application');
+      }
+
+      // If you need to upload the resume file separately:
       // if (formData.resume) {
+      //   const formDataToSend = new FormData();
       //   formDataToSend.append('resume', formData.resume);
+      //   formDataToSend.append('applicationId', applicationId);
+      //   
+      //   await fetch('http://localhost:4000/applications/upload-resume', {
+      //     method: 'POST',
+      //     body: formDataToSend
+      //   });
       // }
-      
-      // const response = await fetch('http://localhost:4000/applications', {
-      //   method: 'POST',
-      //   body: formDataToSend
-      // });
 
       setApplicationSubmitted(true);
+      Toast.fire({
+        icon: 'success',
+        title: 'Application submitted successfully!'
+      });
     } catch (err) {
       console.error('Error submitting application:', err);
-      alert('Failed to submit application. Please try again.');
+      Toast.fire({
+        icon: 'error',
+        title: 'Failed to submit application. Please try again.'
+      });
     } finally {
       setApplying(false);
     }

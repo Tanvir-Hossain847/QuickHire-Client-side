@@ -8,15 +8,14 @@ const nextConfig = {
       },
       {
         protocol: "https",
-        hostname: "i.ibb.co",
+        hostname: "logo.clearbit.com",
       },
       {
         protocol: "https",
-        hostname: "logo.clearbit.com",
+        hostname: "lh3.googleusercontent.com",
       }
     ],
   },
 };
 
 export default nextConfig;
-

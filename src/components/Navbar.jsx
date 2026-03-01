@@ -6,8 +6,9 @@ import { useAuth } from "@/context/AuthContext";
 import { LogOut, User } from "lucide-react";
 
 export default function Navbar() {
-  const { user, logout } = useAuth();
+  const { user, userRole, logout } = useAuth();
 
+  
   const handleLogout = async () => {
     try {
       await logout();
@@ -46,7 +47,7 @@ export default function Navbar() {
               >
                 Browse Companies
               </Link>
-              {user && (
+              {user && userRole === 'admin' && (
                 <Link
                   href="/admin"
                   className="text-[#7a8290] hover:text-[#1e2532] font-semibold text-[15px] transition-colors"

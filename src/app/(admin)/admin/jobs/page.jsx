@@ -11,6 +11,7 @@ import {
   Briefcase,
   DollarSign
 } from 'lucide-react';
+import { Toast, Swal } from '@/utils/sweetalert';
 
 export default function ManageJobs() {
   const searchParams = useSearchParams();
@@ -44,7 +45,16 @@ export default function ManageJobs() {
   };
 
   const handleDeleteJob = async (jobId) => {
-    if (!confirm('Are you sure you want to delete this job?')) {
+    const result = await Swal.fire({
+      title: 'Are you sure?',
+      text: 'You won\'t be able to revert this!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'Cancel'
+    });
+
+    if (!result.isConfirmed) {
       return;
     }
 
@@ -55,13 +65,22 @@ export default function ManageJobs() {
 
       if (response.ok) {
         setJobs(jobs.filter(job => (job.id || job._id) !== jobId));
-        alert('Job deleted successfully!');
+        Toast.fire({
+          icon: 'success',
+          title: 'Job deleted successfully!'
+        });
       } else {
-        alert('Failed to delete job');
+        Toast.fire({
+          icon: 'error',
+          title: 'Failed to delete job'
+        });
       }
     } catch (error) {
       console.error('Error deleting job:', error);
-      alert('Error deleting job');
+      Toast.fire({
+        icon: 'error',
+        title: 'Error deleting job'
+      });
     }
   };
 
@@ -259,21 +278,30 @@ function JobModal({ job, onClose, onSuccess }) {
       });
 
       if (response.ok) {
-        alert(job ? 'Job updated successfully!' : 'Job added successfully!');
+        Toast.fire({
+          icon: 'success',
+          title: job ? 'Job updated successfully!' : 'Job added successfully!'
+        });
         onSuccess();
       } else {
-        alert('Failed to save job');
+        Toast.fire({
+          icon: 'error',
+          title: 'Failed to save job'
+        });
       }
     } catch (error) {
       console.error('Error saving job:', error);
-      alert('Error saving job');
+      Toast.fire({
+        icon: 'error',
+        title: 'Error saving job'
+      });
     } finally {
       setSubmitting(false);
     }
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+    <div className="fixed inset-0 bg-black bg-opacity-30 z-50 flex items-center justify-center p-4">
       <div className="bg-white rounded-lg max-w-3xl w-full max-h-[90vh] overflow-y-auto">
         <div className="sticky top-0 bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between">
           <h2 className="text-2xl font-bold text-[#202941]">

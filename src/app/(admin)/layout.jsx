@@ -12,23 +12,45 @@ import {
   X,
   User
 } from "lucide-react";
+import { Toast } from "@/utils/sweetalert";
 
 export default function AdminLayout({ children }) {
-  const { user, logout } = useAuth();
+  const { user, userRole, logout, loading: authLoading } = useAuth();
   const router = useRouter();
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const [checking, setChecking] = useState(true);
 
   useEffect(() => {
-    // Check if user is logged in and is admin
-    if (!user) {
-      router.push('/login');
-    } else {
-      // You can add admin role check here
-      // For now, we'll allow any logged-in user
-      setLoading(false);
+    console.log('Admin Layout - User:', user?.email);
+    console.log('Admin Layout - User Role:', userRole);
+    console.log('Admin Layout - Auth Loading:', authLoading);
+
+    // Wait for auth to finish loading
+    if (authLoading) {
+      return;
     }
-  }, [user, router]);
+
+    // Check if user is logged in
+    if (!user) {
+      console.log('No user, redirecting to login');
+      router.push('/login');
+      return;
+    }
+
+    // Check if user is admin
+    if (userRole !== 'admin') {
+      console.log('User is not admin, redirecting to home');
+      router.push('/');
+      Toast.fire({
+        icon: 'error',
+        title: 'Access denied. Admin privileges required.'
+      });
+      return;
+    }
+
+    console.log('User is admin, allowing access');
+    setChecking(false);
+  }, [user, userRole, authLoading, router]);
 
   const handleLogout = async () => {
     try {
@@ -39,12 +61,21 @@ export default function AdminLayout({ children }) {
     }
   };
 
-  if (loading) {
+  if (authLoading || checking) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#5848DF]"></div>
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#5848DF] mx-auto"></div>
+          <p className="mt-4 text-gray-600">Verifying access...</p>
+          <p className="mt-2 text-xs text-gray-500">Role: {userRole}</p>
+        </div>
       </div>
     );
+  }
+
+  // Don't render admin content if not admin
+  if (!user || userRole !== 'admin') {
+    return null;
   }
 
   return (
@@ -100,6 +131,15 @@ export default function AdminLayout({ children }) {
               <Briefcase className="h-5 w-5" />
               <span className="font-medium">Manage Jobs</span>
             </Link>
+            <Link
+              href="/admin/applications"
+              className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-[#5848DF] transition-colors"
+            >
+              <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
+              <span className="font-medium">Applications</span>
+            </Link>
           </nav>
 
           {/* User Info & Logout */}
@@ -120,7 +160,16 @@ export default function AdminLayout({ children }) {
               )}
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-medium truncate">{user?.displayName || 'Admin'}</p>
-                <p className="text-xs text-gray-400 truncate">{user?.email}</p>
+                <div className="flex items-center gap-2">
+                  <p className="text-xs text-gray-400 truncate">{user?.email}</p>
+                  <span className={`text-xs px-2 py-0.5 rounded-full ${
+                    userRole === 'admin' 
+                      ? 'bg-green-500/20 text-green-400' 
+                      : 'bg-blue-500/20 text-blue-400'
+                  }`}>
+                    {userRole}
+                  </span>
+                </div>
               </div>
             </div>
             <button

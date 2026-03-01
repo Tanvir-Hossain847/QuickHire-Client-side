@@ -11,7 +11,7 @@ const companies = [
 
 export default function Companies() {
   return (
-    <section className="w-full py-10 bg-[#F8F8FD]">
+    <section className="w-full py-20 bg-[#F8F8FD]">
       <div className="max-w-11/12 mx-auto px-4 sm:px-6 lg:px-8">
         <p className="text-[#8e95ac] text-sm md:text-base font-medium mb-8 text-center lg:text-left">
           Companies we helped grow

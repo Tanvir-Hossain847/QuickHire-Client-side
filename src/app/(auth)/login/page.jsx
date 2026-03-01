@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { ArrowRight, Mail, Lock } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
+import { Toast } from '@/utils/sweetalert';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -21,6 +22,10 @@ export default function Login() {
 
     try {
       await login(email, password);
+      Toast.fire({
+        icon: 'success',
+        title: 'Login successful!'
+      });
       router.push('/');
     } catch (error) {
       setError(error.message || 'Failed to login. Please check your credentials.');
@@ -35,9 +40,30 @@ export default function Login() {
 
     try {
       await signInWithGoogle();
+      Toast.fire({
+        icon: 'success',
+        title: 'Login successful!'
+      });
       router.push('/');
     } catch (error) {
-      setError(error.message || 'Failed to sign in with Google.');
+      console.error('Google sign-in error:', error);
+      
+      // Provide user-friendly error messages
+      let errorMessage = 'Failed to sign in with Google.';
+      
+      if (error.code === 'auth/popup-closed-by-user') {
+        errorMessage = 'Sign-in cancelled. Please try again.';
+      } else if (error.code === 'auth/popup-blocked') {
+        errorMessage = 'Popup was blocked. Please allow popups for this site.';
+      } else if (error.code === 'auth/unauthorized-domain') {
+        errorMessage = 'This domain is not authorized. Please contact support.';
+      } else if (error.code === 'auth/operation-not-allowed') {
+        errorMessage = 'Google sign-in is not enabled. Please contact support.';
+      } else if (error.message) {
+        errorMessage = error.message;
+      }
+      
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }
