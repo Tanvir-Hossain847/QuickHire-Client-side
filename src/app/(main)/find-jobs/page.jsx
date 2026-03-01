@@ -19,7 +19,7 @@ export default function FindJobs() {
   const fetchJobs = async () => {
     try {
       setLoading(true);
-      const response = await fetch('http://localhost:4000/jobs');
+      const response = await fetch('https://quick-hire-server-side-jmmo.vercel.app/jobs');
       if (!response.ok) {
         throw new Error('Failed to fetch jobs');
       }

@@ -22,14 +22,14 @@ export default function AdminDashboard() {
       setLoading(true);
       
       // Fetch jobs
-      const jobsResponse = await fetch('http://localhost:4000/jobs');
+      const jobsResponse = await fetch('https://quick-hire-server-side-jmmo.vercel.app/jobs');
       let jobsData = [];
       if (jobsResponse.ok) {
         jobsData = await jobsResponse.json();
       }
 
       // Fetch applications
-      const appsResponse = await fetch('http://localhost:4000/applications');
+      const appsResponse = await fetch('https://quick-hire-server-side-jmmo.vercel.app/applications');
       let appsData = [];
       if (appsResponse.ok) {
         appsData = await appsResponse.json();

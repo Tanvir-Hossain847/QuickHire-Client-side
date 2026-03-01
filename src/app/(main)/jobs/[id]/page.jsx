@@ -53,7 +53,7 @@ export default function JobDetail() {
   const fetchJobDetail = async () => {
     try {
       setLoading(true);
-      const response = await fetch(`http://localhost:4000/jobs/${params.id}`);
+      const response = await fetch(`https://quick-hire-server-side-jmmo.vercel.app/jobs/${params.id}`);
       if (!response.ok) {
         throw new Error('Failed to fetch job details');
       }
@@ -109,7 +109,7 @@ export default function JobDetail() {
       };
 
       // Send application to backend
-      const response = await fetch('http://localhost:4000/applications', {
+      const response = await fetch('https://quick-hire-server-side-jmmo.vercel.app/applications', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -127,7 +127,7 @@ export default function JobDetail() {
       //   formDataToSend.append('resume', formData.resume);
       //   formDataToSend.append('applicationId', applicationId);
       //   
-      //   await fetch('http://localhost:4000/applications/upload-resume', {
+      //   await fetch('https://quick-hire-server-side-jmmo.vercel.app/applications/upload-resume', {
       //     method: 'POST',
       //     body: formDataToSend
       //   });

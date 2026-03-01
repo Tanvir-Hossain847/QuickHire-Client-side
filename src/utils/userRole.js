@@ -5,7 +5,7 @@
  */
 export async function getUserRole(uid) {
   try {
-    const response = await fetch(`http://localhost:4000/users/${uid}`);
+    const response = await fetch(`https://quick-hire-server-side-jmmo.vercel.app/users/${uid}`);
     if (!response.ok) {
       throw new Error('Failed to fetch user role');
     }

@@ -36,7 +36,7 @@ export const AuthProvider = ({ children }) => {
       if (user) {
         setUser(user);
         try {
-          const url = `http://localhost:4000/users/${user.uid}`;
+          const url = `https://quick-hire-server-side-jmmo.vercel.app/users/${user.uid}`;
           console.log('Fetching from URL:', url);
           
           const response = await fetch(url);
@@ -50,56 +50,79 @@ export const AuthProvider = ({ children }) => {
             console.log('Role field:', userData.role);
             console.log('Role type:', typeof userData.role);
             
-            const role = userData.role || 'user';
-            console.log('=== SETTING ROLE ===');
-            console.log('Final role value:', role);
-            setUserRole(role);
-            
-            setTimeout(() => {
-              console.log('Role after setState:', role);
-            }, 100);
-          } else if (response.status === 404) {
-            console.log('User not found in backend (404), creating...');
-            const newUserData = {
-              uid: user.uid,
-              email: user.email,
-              displayName: user.displayName,
-              photoURL: user.photoURL,
-              provider: user.providerData[0]?.providerId || 'email',
-              role: 'user',
-              createdAt: new Date().toISOString()
-            };
-            
-            try {
-              await saveUserToBackend(newUserData);
-              console.log('User created in backend successfully');
-              setUserRole('user');
-            } catch (saveError) {
-              console.error('Failed to create user in backend:', saveError);
-              setUserRole('user');
-            }
-          } else {
-            console.error('Failed to fetch user data, status:', response.status);
-            const text = await response.text();
-            console.error('Response body:', text);
-            setUserRole('user');
-          }
-        } catch (error) {
-          console.error('Error fetching user role:', error);
-          console.error('Error details:', error.message);
-          setUserRole('user');
-        }
-      } else {
-        console.log('No user logged in');
-        setUser(null);
-        setUserRole('user');
-      }
-      setLoading(false);
-      console.log('=== AUTH STATE CHANGE COMPLETE ===');
-    });
+             const role = userData.role || 'user';
+             console.log('=== ROLE SOURCE COMPARISON ===');
+             console.log('MongoDB (Live):', role);
+             
+             // Get the role from the token itself for comparison
+             const token = await user.getIdTokenResult();
+             console.log('Firebase Token Claim:', token.claims.role || 'none (default: user)');
+             
+             if (role !== token.claims.role && token.claims.role !== undefined) {
+               console.warn('⚠️ ROLE MISMATCH: MongoDB says "' + role + '" but your Token still says "' + token.claims.role + '".');
+               console.warn('This is because the token is a snapshot. Follow the steps in implementation_plan.md to set Custom Claims on the backend!');
+             }
+             
+             setUserRole(role);
+           } else if (response.status === 404) {
+             console.log('User not found in backend (404)');
+             console.log('Attempting to create user...');
+             const newUserData = {
+               uid: user.uid,
+               email: user.email,
+               displayName: user.displayName,
+               photoURL: user.photoURL,
+               provider: user.providerData[0]?.providerId || 'email',
+               role: 'user',
+               createdAt: new Date().toISOString()
+             };
+             
+             try {
+               await saveUserToBackend(newUserData);
+               console.log('User created in backend successfully');
+               setUserRole('user');
+             } catch (saveError) {
+               console.warn('Could not auto-create user in backend:', saveError.message);
+               console.log('This usually means the backend POST /users route is missing or broken.');
+               setUserRole('user');
+             }
+           } else {
+             console.error('Failed to fetch user data, status:', response.status);
+             setUserRole('user');
+           }
+         } catch (error) {
+           console.error('Error fetching user role:', error);
+           setUserRole('user');
+         }
+       } else {
+         setUser(null);
+         setUserRole('user');
+       }
+       setLoading(false);
+     });
 
     return () => unsubscribe();
   }, []);
+
+  const refreshRole = async () => {
+    if (!auth.currentUser) return;
+    
+    try {
+      // Force Firebase token refresh to get latest custom claims if any
+      await auth.currentUser.getIdToken(true);
+      
+      const url = `https://quick-hire-server-side-jmmo.vercel.app/users/${auth.currentUser.uid}`;
+      const response = await fetch(url);
+      if (response.ok) {
+        const userData = await response.json();
+        const role = userData.role || 'user';
+        setUserRole(role);
+        return role;
+      }
+    } catch (error) {
+      console.error('Error refreshing role:', error);
+    }
+  };
 
   const saveUserToFirestore = async (userId, userData) => {
     try {
@@ -117,7 +140,7 @@ export const AuthProvider = ({ children }) => {
 
   const saveUserToBackend = async (userData) => {
     try {
-      const response = await fetch('http://localhost:4000/users', {
+      const response = await fetch('https://quick-hire-server-side-jmmo.vercel.app/users', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -125,12 +148,21 @@ export const AuthProvider = ({ children }) => {
         body: JSON.stringify(userData),
       });
 
+      console.log('POST /users response status:', response.status);
+
       if (!response.ok) {
         if (response.status === 409) {
           console.log('User already exists in backend');
           return;
         }
-        throw new Error('Failed to save user to backend');
+        
+        const errorText = await response.text();
+        // Check if it's an HTML error page (commonly returned by Express/Vercel on 404)
+        const isHtml = errorText.includes('<!DOCTYPE html>') || errorText.includes('<html>');
+        const errorMessage = isHtml ? 'Backend route not found (404). Check if POST /users exists.' : errorText;
+        
+        console.error(`Backend error (${response.status}):`, errorMessage);
+        throw new Error(`Failed to save user to backend: ${response.status} - ${errorMessage}`);
       }
 
       const data = await response.json();
@@ -253,6 +285,7 @@ export const AuthProvider = ({ children }) => {
     user,
     loading,
     userRole,
+    refreshRole,
     register,
     login,
     logout,

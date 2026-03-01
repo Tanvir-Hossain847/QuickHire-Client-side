@@ -32,7 +32,7 @@ export default function ManageJobs() {
   const fetchJobs = async () => {
     try {
       setLoading(true);
-      const response = await fetch('http://localhost:4000/jobs');
+      const response = await fetch('https://quick-hire-server-side-jmmo.vercel.app/jobs');
       if (response.ok) {
         const data = await response.json();
         setJobs(data);
@@ -59,7 +59,7 @@ export default function ManageJobs() {
     }
 
     try {
-      const response = await fetch(`http://localhost:4000/jobs/${jobId}`, {
+      const response = await fetch(`https://quick-hire-server-side-jmmo.vercel.app/jobs/${jobId}`, {
         method: 'DELETE',
       });
 
@@ -264,8 +264,8 @@ function JobModal({ job, onClose, onSuccess }) {
       };
 
       const url = job 
-        ? `http://localhost:4000/jobs/${job.id || job._id}`
-        : 'http://localhost:4000/jobs';
+        ? `https://quick-hire-server-side-jmmo.vercel.app/jobs/${job.id || job._id}`
+        : 'https://quick-hire-server-side-jmmo.vercel.app/jobs';
       
       const method = job ? 'PUT' : 'POST';
 

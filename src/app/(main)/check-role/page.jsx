@@ -15,7 +15,7 @@ export default function CheckRole() {
 
   const fetchUserFromBackend = async () => {
     try {
-      const response = await fetch(`http://localhost:4000/users/${user.uid}`);
+      const response = await fetch(`https://quick-hire-server-side-jmmo.vercel.app/users/${user.uid}`);
       if (response.ok) {
         const data = await response.json();
         setBackendData(data);
@@ -112,7 +112,7 @@ export default function CheckRole() {
               <p className="font-semibold">Error fetching from backend:</p>
               <p className="text-sm mt-2">{backendError}</p>
               <p className="text-sm mt-2">
-                Make sure your backend is running on <code className="bg-red-100 px-2 py-1 rounded">http://localhost:4000</code>
+                Make sure your backend is running on <code className="bg-red-100 px-2 py-1 rounded">https://quick-hire-server-side-jmmo.vercel.app</code>
               </p>
             </div>
           ) : backendData ? (

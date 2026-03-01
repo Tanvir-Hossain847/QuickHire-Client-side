@@ -59,7 +59,7 @@ npm run dev
 
 ## Backend Setup
 
-The application requires a backend API running on `http://localhost:4000`
+The application requires a backend API running on `https://quick-hire-server-side-jmmo.vercel.app`
 
 ### Required Endpoints:
 
@@ -173,7 +173,7 @@ NEXT_PUBLIC_FIREBASE_APP_ID=
 4. Check browser console for errors
 
 ### Backend Connection Issues
-- Verify backend is running: `http://localhost:4000`
+- Verify backend is running: `https://quick-hire-server-side-jmmo.vercel.app`
 - Check CORS is enabled on backend
 - Ensure all required endpoints exist
 

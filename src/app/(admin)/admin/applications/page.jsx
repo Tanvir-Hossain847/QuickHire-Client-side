@@ -33,7 +33,7 @@ export default function Applications() {
   const fetchApplications = async () => {
     try {
       setLoading(true);
-      const response = await fetch('http://localhost:4000/applications');
+      const response = await fetch('https://quick-hire-server-side-jmmo.vercel.app/applications');
       if (response.ok) {
         const data = await response.json();
         setApplications(data);
@@ -51,7 +51,7 @@ export default function Applications() {
 
   const fetchJobs = async () => {
     try {
-      const response = await fetch('http://localhost:4000/jobs');
+      const response = await fetch('https://quick-hire-server-side-jmmo.vercel.app/jobs');
       if (response.ok) {
         const data = await response.json();
         const jobsMap = {};
@@ -67,7 +67,7 @@ export default function Applications() {
 
   const updateApplicationStatus = async (applicationId, newStatus) => {
     try {
-      const response = await fetch(`http://localhost:4000/applications/${applicationId}`, {
+      const response = await fetch(`https://quick-hire-server-side-jmmo.vercel.app/applications/${applicationId}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
